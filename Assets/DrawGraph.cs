@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class DrawGraph : MonoBehaviour {
     public int size = 20;
-    Coords startPoint_x = new Coords(-160, 0);
-    Coords endPoint_x = new Coords(160, 0);
-    Coords startPoint_y = new Coords(0, 100);
-    Coords endPoint_y = new Coords(0, -100);
+    public int xmax = 200;
+    public int ymax = 200;
+
+    Coords startPoint_x;
+    Coords endPoint_x;
+    Coords startPoint_y;
+    Coords endPoint_y;
 
     // Use this for initialization
     void Start () {
+
+        startPoint_x = new Coords(xmax, 0);
+        endPoint_x = new Coords(-xmax, 0);
+        startPoint_y = new Coords(0,ymax);
+        endPoint_y = new Coords(0, -ymax);
+
         Coords.DrawLine(startPoint_y, endPoint_y, 1f, Color.green);
         Coords.DrawLine(startPoint_x, endPoint_x, 1f, Color.red);
 
-        for (int  x = -160;  x <= 160;  x+=size)
+        int xoffset = (int)(xmax / (float)size);       
+
+        for (int  x = -xoffset*size;  x <= xoffset*size;  x+=size)
         {
-            Coords.DrawLine(new Coords(x,-100), new Coords(x,100), 0.5f, Color.white);
+            Coords.DrawLine(new Coords(x,-ymax), new Coords(x,ymax), 0.5f, Color.white);
         }
-        for (int y = -100; y <= 100; y+=size)
+
+        int yoffset = (int)(ymax / (float)size);
+        for (int y = -yoffset*size; y <= yoffset*size; y+=size)
         {
-            Coords.DrawLine(new Coords(-160,y), new Coords(160,y), 0.5f, Color.white);
+            Coords.DrawLine(new Coords(-xmax,y), new Coords(xmax,y), 0.5f, Color.white);
         }
     }
 	
